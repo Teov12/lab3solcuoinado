@@ -1,10 +1,15 @@
 app.component('reinvertir',{
+    props:{
+        montoInicial:{
+        type: Number,
+        }
+    },
     template:
     /*html*/
     `<br>
     <button v-on:click="btnReinvertir">Reinvertir</button>
     <br>
-    <div id="mostrarReinvertir">
+    <div v-show="mostrarGrilla" id="mostrarReinvertir">
         <div id="grid-1"></div>
         <div id="grid-2"></div>
         <div id="grid-3"></div>
@@ -23,12 +28,13 @@ app.component('reinvertir',{
     </div>`,
 data() {
     return {
-        
+        mostrarGrilla: false
     }
 },
 methods: {
     btnReinvertir(){
-
+        this.mostrarGrilla = true;
+        console.log(this.montoInicial);
     }
     
 },

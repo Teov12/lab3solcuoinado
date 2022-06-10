@@ -1,10 +1,11 @@
-app.component('product-contnent', {
+app.component('formulario', {
     template:
     /*html*/
     `
-    <div class="product-content">
+    <div class="content">
             
             <h1>{{ingresarDatos}}</h1>
+            <hr>
             <section>
             <label for="name"> Apellido y nombre: </label><br>
             <input v-model="name"><br>
@@ -17,7 +18,7 @@ app.component('product-contnent', {
             <input v-model="dias" type="number"><br>
             <small>{{diasMinimos}}</small>
             <br><br>
-            <button v-on:click="btnCalcular">Calcular</button>
+            <button v-on:click="btnCalcular" id="btnCalcular">Calcular</button>
             <br>
           
             </section>
@@ -26,8 +27,8 @@ app.component('product-contnent', {
                 <p v-show="mensajeError === 2">El monto ingresado no es valido</p>
                 <p v-show="mensajeError === 3">Los dias ingresados no son validos</p>
             </div>
-            <div id="mostrarMontoFinal">
-              <p v-if="montofinal">{{ mostrarMontoFinal }}</p>    
+            <div>
+              <p v-if="montofinal" id="mostrarMontoFinal">{{ mostrarMontoFinal }}</p>    
             </div>
     </div>`,
 data() {
@@ -42,31 +43,27 @@ data() {
       mensajeError: 0,
       porcentaje: 0,
       montofinal: null,
-      mostrarMonto: true  
+      mostrarMonto: true,
 
       
     }
 },
 methods: {
     btnCalcular(){
-      this.validarFormulario()
+      this.validarFormulario();
       this.calcularPorcentaje();
-      this.calcularMonto();
+      if(this.mensajeError ===0){this.calcularMonto()};
     },
     validarFormulario(){
       this.bandera = true;
       if(this.name.trim() === ''){
         this.mensajeError = 1;
-        this.bandera = false;
       }else if(this.monto < 1000){
         this.mensajeError = 2;
-        this. bandera= false;
       }else if(this.dias < 30){
         this.mensajeError = 3;
-        this.bandera= false;
       }else{
         this.mensajeError = 0;
-        this.bandera = true;
       }
 
     },
@@ -87,7 +84,8 @@ methods: {
     },
     calcularMonto(){
 
-      this.montofinal = this.monto+(this.monto*(this.dias/360)*(this.porcentaje/100))
+      this.montofinal = this.monto+(this.monto*(this.dias/360)*(this.porcentaje/100));
+      this.$emit('monto-final', this.montofinal, this.porcentaje);
       return this.montofinal
     }
   },

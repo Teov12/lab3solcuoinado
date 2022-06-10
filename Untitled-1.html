@@ -12,12 +12,16 @@
 <body>
     <div id="app">
         
-        <product-contnent></product-contnent>
-        
+        <formulario @monto-final="pasarMontoFinal"></formulario>
+        <div v-if="reinvertir">
+            <reinvertir :montoInicial="montoInicial"></reinvertir>
+        </div>
+
     </div>
 
     <script src="plazof.js" ></script>
     <script src="./componentes/formcomp.js"></script>
+    <script src="./componentes/reinvcomp.js"></script>
     
     <script>
         const mountedApp = app.mount('#app')
