@@ -1,19 +1,21 @@
 const app = Vue.createApp({
   data(){
     return{
-      montoInicial: 0,
       porcentaje: 0,
-      reinvertir: false
+      reinvertir: false,
+      montofinal: 0,
+      montoinicial:0,
+      dias:0
     }
   },
   methods: {
-    pasarMontoFinal(montoPasado, porcentajePasado){
-      this.montoInicial = montoPasado;
-      this.porcentaje = porcentajePasado;
+    pasarMontoFinal(montoPasado, porcentajePasado, montoinicialpasado, diaspasados){
       this.reinvertir = true;
-      console.log(this.montoInicial);
-      console.log(this.porcentaje);
-    }
+      this.montofinal =  montoPasado;
+      this.porcentaje = porcentajePasado;
+      this.montoinicial = montoinicialpasado;
+      this.dias = diaspasados;
+    },
   },
   computed: {
     

@@ -13,8 +13,8 @@
     <div id="app">
         
         <formulario @monto-final="pasarMontoFinal"></formulario>
-        <div v-if="reinvertir">
-            <reinvertir :montoInicial="montoInicial"></reinvertir>
+        <div v-if="reinvertir" id="divReinvertir">
+            <reinvertir :montofinal="montofinal" :porcentaje="porcentaje" :montoinicial="montoinicial" :dias="dias"></reinvertir>
         </div>
 
     </div>

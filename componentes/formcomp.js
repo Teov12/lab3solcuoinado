@@ -8,7 +8,7 @@ app.component('formulario', {
             <hr>
             <section>
             <label for="name"> Apellido y nombre: </label><br>
-            <input v-model="name"><br>
+            <input v-model="name" type="text"><br>
             <label for="monto"> {{inversion}} </label><br>
             <input v-model="monto" type="number"><br>
             <small>{{inversionMinima}}</small>
@@ -37,13 +37,13 @@ data() {
       diasMinimos: '(Mínimo 30 días)',
       inversion: 'Monto que desea invertir',
       ingresarDatos: 'Por favor, ingrese sus datos',
-      name: '',
-      monto: null,
-      dias: null,
       mensajeError: 0,
       porcentaje: 0,
-      montofinal: null,
+      montofinal: 0,
       mostrarMonto: true,
+      monto: null,
+      dias: null,
+      name: ''
 
       
     }
@@ -52,18 +52,18 @@ methods: {
     btnCalcular(){
       this.validarFormulario();
       this.calcularPorcentaje();
-      if(this.mensajeError ===0){this.calcularMonto()};
+      if(this.mensajeError ===4){this.calcularMonto()};
     },
     validarFormulario(){
-      this.bandera = true;
-      if(this.name.trim() === ''){
+      let nombre = this.name; //Variable creada porque no deja utilizar .trim()
+      if(nombre === ""){
         this.mensajeError = 1;
       }else if(this.monto < 1000){
         this.mensajeError = 2;
       }else if(this.dias < 30){
         this.mensajeError = 3;
       }else{
-        this.mensajeError = 0;
+        this.mensajeError = 4;
       }
 
     },
@@ -85,8 +85,7 @@ methods: {
     calcularMonto(){
 
       this.montofinal = this.monto+(this.monto*(this.dias/360)*(this.porcentaje/100));
-      this.$emit('monto-final', this.montofinal, this.porcentaje);
-      return this.montofinal
+      this.$emit('monto-final', this.montofinal, this.porcentaje,this.monto, this.dias);
     }
   },
   computed: {
